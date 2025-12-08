@@ -18,7 +18,9 @@ class DatabaseConnection {
             password: password,
 
             database: databaseName,
-            ssl: {}
+            ssl: {
+                rejectUnauthorized: false
+            }
         };
     }
 
