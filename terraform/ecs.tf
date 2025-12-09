@@ -84,7 +84,7 @@ resource "aws_ecs_task_definition" "chatapp" {
       { name = "AZURE_MYSQL_PORT", value = "3306" },
       { name = "AZURE_MYSQL_USERNAME", value = var.db_username },
       { name = "AZURE_MYSQL_PASSWORD", value = var.db_password },
-      { name = "AZURE_MYSQL_DATABASE_NAME", value = "postgres" },
+      { name = "AZURE_MYSQL_DATABASE_NAME", value = "mysql" },
 
       # Unlock
       { name = "UNLOCK", value = var.unlock_password },
