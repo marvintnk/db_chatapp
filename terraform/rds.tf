@@ -1,6 +1,4 @@
-############################
-# DB Subnet Group (unverändert)
-############################
+
 resource "aws_db_subnet_group" "main" {
   name = "main-db-subnet-group"
   subnet_ids = [
@@ -10,14 +8,12 @@ resource "aws_db_subnet_group" "main" {
   tags = { Name = "main-db-subnet-group" }
 }
 
-############################
-# RDS MySQL Instanz (3306!)
-############################
-resource "aws_db_instance" "mysql" {
-  identifier     = "chatapp-mysql"  # ← Neuer Name!
 
-  engine         = "mysql"          # ← MYSQL!
-  engine_version = "8.0"            # ← Aktuell + stabil
+resource "aws_db_instance" "mysql" {
+  identifier     = "chatapp-mysql"  
+
+  engine         = "mysql"      
+  engine_version = "8.0"            
 
   instance_class    = "db.t3.micro"
   allocated_storage = 20
@@ -27,7 +23,7 @@ resource "aws_db_instance" "mysql" {
 
   db_subnet_group_name   = aws_db_subnet_group.main.name
   vpc_security_group_ids = [aws_security_group.db_sg.id]
-  port                   = 3306                    # ← MYSQL PORT!
+  port                   = 3306            
 
   publicly_accessible = false
   multi_az            = false

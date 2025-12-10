@@ -50,9 +50,9 @@ resource "aws_security_group" "db_sg" {
 }
 
 
-resource "aws_security_group_rule" "ecs_to_mysql" {  # ← MYSQL 3306!
+resource "aws_security_group_rule" "ecs_to_mysql" { 
   type                     = "ingress"
-  from_port                = 3306                 # ← MYSQL!
+  from_port                = 3306
   to_port                  = 3306
   protocol                 = "tcp"
   security_group_id        = aws_security_group.db_sg.id
@@ -60,14 +60,22 @@ resource "aws_security_group_rule" "ecs_to_mysql" {  # ← MYSQL 3306!
 }
 
 
-# ALB Security Group
 resource "aws_security_group" "alb_sg" {
   name   = "alb-sg"
   vpc_id = aws_vpc.main.id
 
+  # HTTP  
   ingress {
     from_port   = 80
     to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # HTTPS
+  ingress {
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }

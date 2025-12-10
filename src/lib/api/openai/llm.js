@@ -44,8 +44,8 @@ class LLM {
 
         return this._client.chat.completions.create({
             messages: conversation,
-            max_tokens: 2048,
-            temperature: 0.01,
+            max_completion_tokens: 2048,
+            temperature: 1, // Changesd from 0.01 because 5.1 nano does not support temperatures other than 1 to-do
             top_p: 1,
             model: this._model,
             stream: use_streaming

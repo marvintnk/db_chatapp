@@ -1,0 +1,2 @@
+aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 942849037433.dkr.ecr.eu-central-1.amazonaws.com
+docker buildx build --platform linux/amd64 -t 942849037433.dkr.ecr.eu-central-1.amazonaws.com/sveltekit-chatapp:latest --push .
