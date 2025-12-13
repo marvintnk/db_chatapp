@@ -34,7 +34,27 @@ jobs:
       - name: Build App
         run: npm run build
 
-      # 5️⃣ Login to ECR
+      # 5️⃣ Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.7
+
+      # 6️⃣ Terraform Init
+      - name: Terraform Init
+        working-directory: ./terraform
+        run: terraform init
+
+      # 7️⃣ Terraform Apply nur für ECR
+      - name: Terraform Apply ECR
+        working-directory: ./terraform
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+        run: terraform apply -auto-approve -target=aws_ecr_repository.sveltekit_app
+
+      # 8️⃣ Login to ECR
       - name: Login to AWS ECR
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -43,7 +63,7 @@ jobs:
         run: |
           aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPOSITORY
 
-      # 6️⃣ Build & Push Docker Image direkt zu ECR
+      # 9️⃣ Build & Push Docker Image direkt zu ECR
       - name: Build & Push Docker image
         run: |
           docker buildx build \
@@ -51,22 +71,13 @@ jobs:
             -t $ECR_REPOSITORY:latest \
             --push .
 
-      # 7️⃣ Terraform Init & Apply
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.5.7
-
-      - name: Terraform Init
-        working-directory: ./terraform
-        run: terraform init
-
-      - name: Terraform Apply
+      # 🔟 Terraform Apply für den Rest
+      - name: Terraform Apply All
         working-directory: ./terraform
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }} 
+          AWS_REGION: ${{ secrets.AWS_REGION }}
           TF_VAR_azure_openai_api_deployment: ${{ secrets.TF_VAR_AZURE_OPENAI_API_DEPLOYMENT }}
           TF_VAR_azure_openai_api_endpoint:   ${{ secrets.TF_VAR_AZURE_OPENAI_API_ENDPOINT }}
           TF_VAR_azure_openai_api_key:        ${{ secrets.TF_VAR_AZURE_OPENAI_API_KEY }}
