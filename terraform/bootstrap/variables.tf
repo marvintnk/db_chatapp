@@ -5,3 +5,7 @@ variable "tf_state_bucket" {
 variable "tf_state_dynamodb" {
   type = string
 }
+
+variable "AWS_REGION" {
+  default = "eu-central-1"
+}
