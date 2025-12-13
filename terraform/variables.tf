@@ -1,59 +1,59 @@
-variable "aws_region" {
+variable "AWS_REGION" {
   default = "eu-central-1"
 }
 
 # Bestehende DB-Vars
-variable "db_username" {
+variable "DB_USERNAME" {
   default = "app_user"
 }
 
-variable "db_name" {
+variable "DB_NAME" {
   type      = string
   sensitive = true
 }
 
-variable "db_password" {
+variable "DB_PASSWORD" {
   type      = string
   sensitive = true
 }
 
 # Azure ChatGPT / Microsoft Foundry Vars
-variable "azure_openai_api_key" {
+variable "AZURE_OPENAI_API_KEY" {
   type      = string
   sensitive = true
 }
 
-variable "azure_openai_api_version" {
+variable "AZURE_OPENAI_API_VERSION" {
   type    = string
   default = "2024-02-01"
 }
 
-variable "azure_openai_api_endpoint" {
+variable "AZURE_OPENAI_API_ENDPOINT" {
   type      = string
   sensitive = true
 }
 
-variable "azure_openai_api_model_name" {
+variable "AZURE_OPENAI_API_MODEL_NAME" {
   type    = string
   default = "gpt-4.1-nano"
 }
 
-variable "azure_openai_api_deployment" {
+variable "AZURE_OPENAI_API_DEPLOYMENT" {
   type = string
 }
 
 # Unlock Password
-variable "unlock_password" {
+variable "UNLOCK_PASSWORD" {
   type      = string
   sensitive = true
 }
 
 # Speech (optional)
-variable "azure_speech_key" {
+variable "AZURE_SPEECH_KEY" {
   type      = string
   sensitive = true
 }
 
-variable "azure_speech_region" {
+variable "AZURE_SPEECH_REGION" {
   type = string
 }
