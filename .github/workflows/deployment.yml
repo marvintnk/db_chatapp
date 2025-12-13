@@ -66,15 +66,15 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          TF_VAR_AZURE_OPENAI_API_DEPLOYMENT: ${{ secrets.TF_VAR_AZURE_OPENAI_API_DEPLOYMENT }}
-          TF_VAR_AZURE_OPENAI_API_ENDPOINT: ${{ secrets.TF_VAR_AZURE_OPENAI_API_ENDPOINT }}
-          TF_VAR_AZURE_OPENAI_API_KEY: ${{ secrets.TF_VAR_AZURE_OPENAI_API_KEY }}
-          TF_VAR_AZURE_OPENAI_API_MODEL_NAME: ${{ secrets.TF_VAR_AZURE_OPENAI_API_MODEL_NAME }}
-          TF_VAR_AZURE_SPEECH_KEY: ${{ secrets.TF_VAR_AZURE_SPEECH_KEY }}
-          TF_VAR_AZURE_SPEECH_REGION: ${{ secrets.TF_VAR_AZURE_SPEECH_REGION }}
-          TF_VAR_DB_NAME: ${{ secrets.TF_VAR_DB_NAME }}
-          TF_VAR_DB_PASSWORD: ${{ secrets.TF_VAR_DB_PASSWORD }}
-          TF_VAR_DB_USERNAME: ${{ secrets.TF_VAR_DB_USERNAME }}
-          TF_VAR_UNLOCK_PASSWORD: ${{ secrets.TF_VAR_UNLOCK_PASSWORD }}
+          AWS_REGION: ${{ secrets.AWS_REGION }} 
+          TF_VAR_azure_openai_api_deployment: ${{ secrets.TF_VAR_AZURE_OPENAI_API_DEPLOYMENT }}
+          TF_VAR_azure_openai_api_endpoint:   ${{ secrets.TF_VAR_AZURE_OPENAI_API_ENDPOINT }}
+          TF_VAR_azure_openai_api_key:        ${{ secrets.TF_VAR_AZURE_OPENAI_API_KEY }}
+          TF_VAR_azure_openai_api_model_name: ${{ secrets.TF_VAR_AZURE_OPENAI_API_MODEL_NAME }}
+          TF_VAR_azure_speech_key:            ${{ secrets.TF_VAR_AZURE_SPEECH_KEY }}
+          TF_VAR_azure_speech_region:         ${{ secrets.TF_VAR_AZURE_SPEECH_REGION }}
+          TF_VAR_db_name:                      ${{ secrets.TF_VAR_DB_NAME }}
+          TF_VAR_db_password:                  ${{ secrets.TF_VAR_DB_PASSWORD }}
+          TF_VAR_db_username:                  ${{ secrets.TF_VAR_DB_USERNAME }}
+          TF_VAR_unlock_password:              ${{ secrets.TF_VAR_UNLOCK_PASSWORD }}
         run: terraform apply -auto-approve
