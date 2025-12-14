@@ -16,6 +16,8 @@ jobs:
       ECR_REPOSITORY: ${{ secrets.AWS_ECR_REPOSITORY }}
       TF_STATE_S3_BUCKET: ${{ secrets.TF_STATE_S3_BUCKET }}
       TF_STATE_DYNAMODB_TABLE: ${{ secrets.TF_STATE_DYNAMODB_TABLE }}
+      AWS_ACCESS_KEY_ID:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 
     steps:
@@ -55,10 +57,6 @@ jobs:
 
       # Login to ECR
       - name: Login to AWS ECR
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
           aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPOSITORY
 
@@ -74,9 +72,6 @@ jobs:
       - name: Terraform Apply All
         working-directory: ./terraform/main
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
           TF_VAR_azure_openai_api_deployment: ${{ secrets.TF_VAR_AZURE_OPENAI_API_DEPLOYMENT }}
           TF_VAR_azure_openai_api_endpoint:   ${{ secrets.TF_VAR_AZURE_OPENAI_API_ENDPOINT }}
           TF_VAR_azure_openai_api_key:        ${{ secrets.TF_VAR_AZURE_OPENAI_API_KEY }}
