@@ -26,3 +26,7 @@ jobs:
           TF_VAR_tf_state_bucket:    marvin-tfstate-20251213
           TF_VAR_tf_state_dynamodb:  tf-state-locks
         run: terraform apply -auto-approve
+
+      - name: Terraform Outputs
+        working-directory: terraform/bootstrap
+        run: terraform output
