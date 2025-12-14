@@ -14,7 +14,7 @@ jobs:
     env:
       AWS_REGION: ${{ secrets.AWS_REGION }}
       ECR_REPOSITORY: ${{ secrets.AWS_ECR_REPOSITORY }}
-      TF_STATE_BUCKET: ${{ secrets.TF_STATE_BUCKET }}
+      TF_STATE_S3_BUCKET: ${{ secrets.TF_STATE_S3_BUCKET }}
       TF_STATE_DYNAMODB_TABLE: ${{ secrets.TF_STATE_DYNAMODB_TABLE }}
 
 
@@ -48,7 +48,7 @@ jobs:
         working-directory: ./terraform/main
         run: |
           terraform init \
-            -backend-config="bucket=$TF_STATE_BUCKET" \
+            -backend-config="bucket=$TF_STATE_S3_BUCKET" \
             -backend-config="key=terraform.tfstate" \
             -backend-config="region=$AWS_REGION" \
             -backend-config="dynamodb_table=$TF_STATE_DYNAMODB_TABLE"
