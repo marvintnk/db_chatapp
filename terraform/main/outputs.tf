@@ -34,6 +34,3 @@ output "static_bucket_name" {
 output "static_bucket_website_endpoint" {
   value = aws_s3_bucket_website_configuration.static_site.website_endpoint
 }
-output "ecr_repository_url" {
-  value = aws_ecr_repository.sveltekit_app.repository_url
-}

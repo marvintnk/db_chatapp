@@ -68,8 +68,8 @@ jobs:
             -t $ECR_REPOSITORY:latest \
             --push .
 
-      # Terraform Apply für den Rest
-      - name: Terraform Apply All
+      # Terraform Apply
+      - name: Terraform Apply
         working-directory: ./terraform/main
         env:
           TF_VAR_azure_openai_api_deployment: ${{ secrets.TF_VAR_AZURE_OPENAI_API_DEPLOYMENT }}
