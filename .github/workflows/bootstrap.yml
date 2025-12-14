@@ -22,9 +22,9 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID:     ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ var.AWS_REGION }}
-          TF_VAR_tf_state_bucket:    ${{ var.TF_STATE_S3_BUCKET }}
-          TF_VAR_tf_state_dynamodb:  ${{ var.TF_STATE_DYNAMODB_TABLE }}
+          AWS_REGION: ${{ vars.AWS_REGION }}
+          TF_VAR_tf_state_bucket:    ${{ vars.TF_STATE_S3_BUCKET }}
+          TF_VAR_tf_state_dynamodb:  ${{ vars.TF_STATE_DYNAMODB_TABLE }}
         run: terraform apply -auto-approve
 
       - name: Terraform Outputs
