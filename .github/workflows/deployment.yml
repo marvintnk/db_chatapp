@@ -12,10 +12,10 @@ jobs:
     environment: default
 
     env:
-      AWS_REGION: ${{ secrets.AWS_REGION }}
-      ECR_REPOSITORY: ${{ secrets.AWS_ECR_REPOSITORY }}
-      TF_STATE_S3_BUCKET: ${{ secrets.TF_STATE_S3_BUCKET }}
-      TF_STATE_DYNAMODB_TABLE: ${{ secrets.TF_STATE_DYNAMODB_TABLE }}
+      AWS_REGION: ${{ var.AWS_REGION }}
+      ECR_REPOSITORY: ${{ var.AWS_ECR_REPOSITORY }}
+      TF_STATE_S3_BUCKET: ${{ var.TF_STATE_S3_BUCKET }}
+      TF_STATE_DYNAMODB_TABLE: ${{ var.TF_STATE_DYNAMODB_TABLE }}
       AWS_ACCESS_KEY_ID:     ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
@@ -72,13 +72,13 @@ jobs:
       - name: Terraform Apply
         working-directory: ./terraform/main
         env:
-          TF_VAR_azure_openai_api_deployment: ${{ secrets.TF_VAR_AZURE_OPENAI_API_DEPLOYMENT }}
-          TF_VAR_azure_openai_api_endpoint:   ${{ secrets.TF_VAR_AZURE_OPENAI_API_ENDPOINT }}
+          TF_VAR_azure_openai_api_deployment: ${{ var.TF_VAR_AZURE_OPENAI_API_DEPLOYMENT }}
+          TF_VAR_azure_openai_api_endpoint:   ${{ var.TF_VAR_AZURE_OPENAI_API_ENDPOINT }}
           TF_VAR_azure_openai_api_key:        ${{ secrets.TF_VAR_AZURE_OPENAI_API_KEY }}
-          TF_VAR_azure_openai_api_model_name: ${{ secrets.TF_VAR_AZURE_OPENAI_API_MODEL_NAME }}
+          TF_VAR_azure_openai_api_model_name: ${{ var.TF_VAR_AZURE_OPENAI_API_MODEL_NAME }}
           TF_VAR_azure_speech_key:            ${{ secrets.TF_VAR_AZURE_SPEECH_KEY }}
-          TF_VAR_azure_speech_region:         ${{ secrets.TF_VAR_AZURE_SPEECH_REGION }}
-          TF_VAR_db_name:                      ${{ secrets.TF_VAR_DB_NAME }}
+          TF_VAR_azure_speech_region:         ${{ var.TF_VAR_AZURE_SPEECH_REGION }}
+          TF_VAR_db_name:                      ${{ var.TF_VAR_DB_NAME }}
           TF_VAR_db_password:                  ${{ secrets.TF_VAR_DB_PASSWORD }}
           TF_VAR_db_username:                  ${{ secrets.TF_VAR_DB_USERNAME }}
           TF_VAR_unlock_password:              ${{ secrets.TF_VAR_UNLOCK_PASSWORD }}
