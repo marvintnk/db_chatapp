@@ -11,7 +11,3 @@ output "tf_state_dynamodb_table" {
   value       = aws_dynamodb_table.tf_locks.name
   description = "Terraform state lock table"
 }
-
-output "aws_region" {
-  value = var.aws_region
-}
