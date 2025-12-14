@@ -42,7 +42,7 @@ jobs:
 
       # 6️⃣ Terraform Init
       - name: Terraform Init
-        working-directory: ./terraform
+        working-directory: ./terraform/main
         run: |
           terraform init \
             -backend-config="bucket=$TF_STATE_BUCKET" \
@@ -52,7 +52,7 @@ jobs:
 
       # 7️⃣ Terraform Apply nur für ECR
       - name: Terraform Apply ECR
-        working-directory: ./terraform
+        working-directory: ./terraform/main
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -78,7 +78,7 @@ jobs:
 
       # 🔟 Terraform Apply für den Rest
       - name: Terraform Apply All
-        working-directory: ./terraform
+        working-directory: ./terraform/main
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
