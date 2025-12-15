@@ -6,11 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "test": "vitest",
+    "test": "vitest run --dir tests",
     "preview": "vite preview"
   },
   "devDependencies": {
     "@azure/identity": "latest",
+    "@playwright/test": "^1.57.0",
     "@sveltejs/adapter-auto": "^4.0.0",
     "@sveltejs/adapter-node": "^5.4.0",
     "@sveltejs/kit": "^2.20.7",
