@@ -43,12 +43,14 @@ jobs:
   codeql:
     name: CodeQL Security Scan
     runs-on: ubuntu-latest
+    environment: default
     permissions:
       actions: read
       security-events: write
     strategy:
       matrix:
         language: ["javascript"]
+        
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
