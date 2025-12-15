@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "test": "vitest",
     "preview": "vite preview"
   },
   "devDependencies": {
@@ -19,6 +20,7 @@
     "@tailwindcss/vite": "^4.0.14",
     "autoprefixer": "^10.4.20",
     "dotenv": "^16.5.0",
+    "jsdom": "^27.3.0",
     "mysql2": "^3.14.1",
     "openai": "latest",
     "postcss": "^8.5.1",
@@ -27,7 +29,8 @@
     "svelte-check": "^4.1.1",
     "tailwind-merge": "^3.2.0",
     "tailwindcss": "^4.0.0-beta.9",
-    "vite": "^6.0.9"
+    "vite": "^6.0.9",
+    "vitest": "^4.0.15"
   },
   "dependencies": {
     "jspdf": "^3.0.1",
