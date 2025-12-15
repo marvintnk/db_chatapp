@@ -12,6 +12,7 @@ on:
 jobs:
   test-and-analyze:
     runs-on: ubuntu-latest
+    environment: default
 
     steps:
       - name: Checkout repository
