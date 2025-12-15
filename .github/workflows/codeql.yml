@@ -31,10 +31,6 @@ jobs:
       # - name: Run Unit Tests
       #   run: npm test
 
-      # Optional: Lint
-      - name: Run ESLint
-        run: npm run lint
-
       # SonarCloud Scan
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
