@@ -1,39 +1,64 @@
-name: CodeQL Security Scan
+name: Code Quality and Security Scan
+
+# on:
+#   push:
+#     branches: [master]
+#   pull_request:
+#     branches: [master]
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-  schedule:
-    - cron: '0 2 * * 1' # wöchentlich
+  workflow_dispatch:
 
 jobs:
-  analyze:
-    name: Analyze
+  build-and-test:
     runs-on: ubuntu-latest
 
-    permissions:
-      security-events: write
-      actions: read
-      contents: read
-
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [ 'javascript' ]
-
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Node.js Setup
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      # Unit Tests
+      - name: Run Unit Tests
+        run: npm test
+
+      # Lint / Code Quality Checks (optional)
+      - name: ESLint
+        run: npm run lint
+
+      # SonarCloud Scan
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          projectBaseDir: .
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  codeql:
+    name: CodeQL Security Scan
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      security-events: write
+    strategy:
+      matrix:
+        language: [ "javascript"] 
+    steps:
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
-
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v2
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
