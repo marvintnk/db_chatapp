@@ -47,10 +47,11 @@ jobs:
     permissions:
       actions: read
       security-events: write
+      contents: read
     strategy:
       matrix:
         language: ["javascript"]
-        
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
