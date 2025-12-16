@@ -28,9 +28,9 @@ jobs:
       - name: Install NPM packages
         run: npm install
 
-      # # Unit Tests
-      # - name: Run Unit Tests
-      #   run: npm test
+      # Unit Tests
+      - name: Run Unit Tests
+        run: npm test
 
       # SonarCloud Scan
       - name: SonarCloud Scan
