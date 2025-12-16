@@ -1,0 +1,61 @@
+name: Destroy Infrastructure
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_destroy:
+        description: 'Bist du sicher? Schreibe "DELETE" um fortzufahren.'
+        required: true
+        default: 'NO'
+
+jobs:
+  terraform-destroy:
+    name: Terraform Destroy
+    runs-on: ubuntu-latest
+    environment: default
+    
+    # Sicherheits-Check: Läuft nur, wenn man "DELETE" eingetippt hat
+    if: ${{ inputs.confirm_destroy == 'DELETE' }}
+
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      TF_STATE_S3_BUCKET: ${{ vars.TF_STATE_S3_BUCKET }}
+      TF_STATE_DYNAMODB_TABLE: ${{ vars.TF_STATE_DYNAMODB_TABLE }}
+      AWS_ACCESS_KEY_ID:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.7
+
+      # Init ist IDENTISCH zum Deploy-Workflow (wichtig für Remote State!)
+      - name: Terraform Init
+        working-directory: ./terraform/main
+        run: |
+          terraform init \
+            -backend-config="bucket=$TF_STATE_S3_BUCKET" \
+            -backend-config="key=terraform.tfstate" \
+            -backend-config="region=$AWS_REGION" \
+            -backend-config="dynamodb_table=$TF_STATE_DYNAMODB_TABLE"
+
+      # Der eigentliche Destroy-Befehl
+      - name: Terraform Destroy
+        working-directory: ./terraform/main
+        env:
+          # Wir übergeben alle Variablen, falls Provider oder Data-Sources sie brauchen
+          TF_VAR_azure_openai_api_deployment: ${{ vars.TF_VAR_AZURE_OPENAI_API_DEPLOYMENT }}
+          TF_VAR_azure_openai_api_endpoint:   ${{ vars.TF_VAR_AZURE_OPENAI_API_ENDPOINT }}
+          TF_VAR_azure_openai_api_key:        ${{ secrets.TF_VAR_AZURE_OPENAI_API_KEY }}
+          TF_VAR_azure_openai_api_model_name: ${{ vars.TF_VAR_AZURE_OPENAI_API_MODEL_NAME }}
+          TF_VAR_azure_speech_key:            ${{ secrets.TF_VAR_AZURE_SPEECH_KEY }}
+          TF_VAR_azure_speech_region:         ${{ vars.TF_VAR_AZURE_SPEECH_REGION }}
+          TF_VAR_db_name:                      ${{ vars.TF_VAR_DB_NAME }}
+          TF_VAR_db_password:                  ${{ secrets.TF_VAR_DB_PASSWORD }}
+          TF_VAR_db_username:                  ${{ secrets.TF_VAR_DB_USERNAME }}
+          TF_VAR_unlock_password:              ${{ secrets.TF_VAR_UNLOCK_PASSWORD }}
+        run: terraform destroy -auto-approve
