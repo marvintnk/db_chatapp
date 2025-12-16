@@ -279,4 +279,18 @@ Nach erfolgreichem Durchlauf aller Scans, Tests und Workflows:
 - Die Funktionalität (Logik & UI-Zugriff) ist validiert.
 - Die Anwendung läuft vollständig auf **AWS**.
 - KI- und Text-to-Speech-Funktionalitäten werden über **Azure Services** bereitgestellt.
-```
+
+---
+
+## 11. Infrastructure Teardown (Ressourcen löschen)
+
+Falls die Anwendung nicht mehr benötigt wird, kann die gesamte AWS-Infrastruktur automatisiert entfernt werden, um Kosten zu vermeiden.
+
+Hierfür steht der Workflow **Destroy Infrastructure** bereit:
+
+**Actions → Destroy Infrastructure → Run workflow**
+
+### Wichtige Hinweise
+- **Bestätigung erforderlich:** Zur Sicherheit müssen Sie im Eingabefeld explizit `DELETE` eintippen, um den Vorgang zu starten.
+- **Umfang:** Dieser Prozess führt `terraform destroy` für die Hauptanwendung aus.
+- **Ausnahmen:** Die Ressourcen der Bootstrap-Phase (ECR Repository, S3 State Bucket) bleiben erhalten, um spätere Deployments zu ermöglichen.
