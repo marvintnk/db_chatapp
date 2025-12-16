@@ -99,7 +99,7 @@ AWS_ECR_REPOSITORY
 ### 4.1 KI (Azure OpenAI)
 
 - Erstellen Sie ein KI-Projekt unter  
-  https://ai.azure.com
+  [https://ai.azure.com](https://ai.azure.com)
 - Deployen Sie ein beliebiges Chat-Modell
 - Notieren Sie sich:
   - API_KEY
@@ -112,7 +112,7 @@ AWS_ECR_REPOSITORY
 
 ### 4.2 Speech-to-Text (Azure Speech Service)
 
-- Öffnen Sie https://portal.azure.com
+- Öffnen Sie [https://portal.azure.com](https://portal.azure.com)
 - Erstellen Sie einen **Speech Service**
 - Notieren Sie sich:
   - SPEECH_KEY
@@ -129,6 +129,8 @@ Nach erfolgreicher Bootstrap-Phase kann der **Main-Workflow** ausgeführt werden
 ```
 
 Der Workflow übernimmt:
+- Code-Qualitätsprüfung und Security Scans
+- Ausführung der Test-Suites
 - Build des Docker Images
 - Push des Images in das ECR Repository
 - Deployment der Anwendung auf AWS
@@ -235,31 +237,48 @@ Eigenes Passwort zum Freischalten der Weboberfläche der Chat-Anwendung.
    └── AWS_ECR_REPOSITORY aus Bootstrap Output übernehmen
 
 3. Main Workflow
-   └── Build Docker Image
-   └── Push nach ECR
+   ├── Statische Analyse & Security (CodeQL, SonarCloud)
+   ├── Testing (Unit & Functional via npm test)
+   ├── Build Docker Image
+   ├── Push nach ECR
    └── Deployment auf AWS
 ```
 
 ---
 
-## 9. Testphasen
+## 9. Qualitätssicherung und Testing
 
-Im Rahmen der GitHub Actions Pipeline sind zwei Testphasen integriert:
+Um eine hohe Codequalität und Sicherheit zu gewährleisten, sind verschiedene Analyse- und Testverfahren fest in die GitHub Actions Pipeline integriert.
 
-### Testphase 1 – Unit Tests
-- Ausführung vor dem Deployment
-- Test einzelner Funktionen und Module
+### 9.1 Statische Code-Analyse & Security Scanning
 
-### Testphase 2 – Integration Test
-- Ausführung nach dem Deployment
-- Prüfung der Erreichbarkeit der Anwendung
+Noch vor dem Build-Prozess wird der Code auf Schwachstellen und Qualitätsmängel geprüft:
+
+- **SonarCloud Scan:** Analysiert den Code auf Bugs, Code Smells und Wartbarkeitsprobleme.
+- **CodeQL (GitHub Advanced Security):** Führt einen semantischen Security-Scan durch, um potenzielle Sicherheitslücken im JavaScript-Code zu identifizieren.
+
+### 9.2 Automatisierte Testphasen
+
+Die Anwendung wird durch `npm run test` validiert. Hierbei kommen zwei spezialisierte Test-Frameworks zum Einsatz:
+
+#### **Testphase 1: Unit Testing (JSDOM)**
+Diese Tests laufen in einer simulierten DOM-Umgebung (JSDOM).
+- **Ziel:** Prüfung der internen Logik und Datenintegrität.
+- **Szenario:** Es wird validiert, ob nach der Instanziierung von Objekten die **Getter-Methoden** die korrekten, erwarteten Werte zurückgeben.
+
+#### **Testphase 2: Functional Testing (Playwright)**
+Hier wird eine vollständige Browser-Instanz simuliert und die Svelte-Endpunkte werden gemockt.
+- **Ziel:** Prüfung der Anwendungslogik aus Nutzerperspektive.
+- **Szenario:** Es wird überprüft, ob der Zugriffsmechanismus funktioniert. Der Test simuliert einen User, der ein Passwort eingibt, und validiert, ob die **Homepage erfolgreich freigeschaltet** wird.
 
 ---
 
 ## 10. Ergebnis
 
-Nach erfolgreichem Durchlauf beider Workflows:
+Nach erfolgreichem Durchlauf aller Scans, Tests und Workflows:
 
-- Die Anwendung läuft vollständig auf **AWS**
-- KI- und Text-to-Speech-Funktionalitäten werden über **Azure Services** bereitgestellt
-- Deployment erfolgt automatisiert über **GitHub Actions**
+- Der Code ist auf Sicherheit und Qualität geprüft.
+- Die Funktionalität (Logik & UI-Zugriff) ist validiert.
+- Die Anwendung läuft vollständig auf **AWS**.
+- KI- und Text-to-Speech-Funktionalitäten werden über **Azure Services** bereitgestellt.
+```

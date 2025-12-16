@@ -28,9 +28,14 @@ jobs:
       - name: Install NPM packages
         run: npm install
 
-      # Unit Tests
-      - name: Run Unit Tests
-        run: npm test
+      # Unit Tests (Testphase 1)
+      - name: Run Unit Tests (Testphase 1)
+        run: npm run test:unit
+
+      # Functional Tests (Testphase 2)
+      - name: Run Functional Tests (Testphase 2)
+        run: npm run test:functional
+
 
       # SonarCloud Scan
       - name: SonarCloud Scan
