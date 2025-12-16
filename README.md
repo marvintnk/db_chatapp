@@ -238,7 +238,7 @@ Eigenes Passwort zum Freischalten der Weboberfläche der Chat-Anwendung.
 
 3. Main Workflow
    ├── Statische Analyse & Security (CodeQL, SonarCloud)
-   ├── Testing (Unit & Functional via npm test)
+   ├── Testing (Unit & Functional)
    ├── Build Docker Image
    ├── Push nach ECR
    └── Deployment auf AWS
@@ -258,8 +258,6 @@ Noch vor dem Build-Prozess wird der Code auf Schwachstellen und Qualitätsmänge
 - **CodeQL (GitHub Advanced Security):** Führt einen semantischen Security-Scan durch, um potenzielle Sicherheitslücken im JavaScript-Code zu identifizieren.
 
 ### 9.2 Automatisierte Testphasen
-
-Die Anwendung wird durch `npm run test` validiert. Hierbei kommen zwei spezialisierte Test-Frameworks zum Einsatz:
 
 #### **Testphase 1: Unit Testing (JSDOM)**
 Diese Tests laufen in einer simulierten DOM-Umgebung (JSDOM).

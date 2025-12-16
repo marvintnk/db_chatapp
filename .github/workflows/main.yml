@@ -10,9 +10,69 @@ on:
   workflow_dispatch:
 
 jobs:
+  test-and-analyze:
+    runs-on: ubuntu-latest
+    environment: default
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Node.js Setup (Version 20 wie Main Workflow)
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      # Install Dependencies
+      - name: Install NPM packages
+        run: npm install
+
+      # Unit Tests (Testphase 1)
+      - name: Run Unit Tests (Testphase 1)
+        run: npm run test:unit
+
+      # Functional Tests (Testphase 2)
+      - name: Run Functional Tests (Testphase 2)
+        run: npm run test:functional
+
+
+      # SonarCloud Scan
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          projectBaseDir: .
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  codeql:
+    name: CodeQL Security Scan
+    runs-on: ubuntu-latest
+    environment: default
+    permissions:
+      actions: read
+      security-events: write
+      contents: read
+    strategy:
+      matrix:
+        language: ["javascript"]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+
   build-and-deploy:
     runs-on: ubuntu-latest
     environment: default
+    needs: [test-and-analyze, codeql]
 
     env:
       AWS_REGION: ${{ vars.AWS_REGION }}
