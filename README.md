@@ -1,5 +1,8 @@
 # AWS Chatbot – Dokumentation
 
+[![Infra Bootstrap](https://github.com/marvintnk/db_chatapp/actions/workflows/bootstrap.yml/badge.svg)](https://github.com/marvintnk/db_chatapp/actions/workflows/bootstrap.yml)
+[![Deploy to AWS](https://github.com/marvintnk/db_chatapp/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/marvintnk/db_chatapp/actions/workflows/main.yml)
+
 ## Installationsanleitung (AWS)
 
 Diese Anleitung beschreibt die Bereitstellung der Anwendung auf **AWS** mithilfe von **GitHub Actions**.  
@@ -68,6 +71,7 @@ TF_STATE_DYNAMODB_TABLE      (z. B. chatapp-tfstate-locks)
 ### 3.2 Bootstrap-Workflow ausführen
 
 Der Bootstrap-Workflow wird **einmalig** ausgeführt.
+Vor erneuter Ausführung muss das Script **./terraform/main/remove_remote_backend.sh** ausgeführt werden.
 
 In GitHub unter:
 
