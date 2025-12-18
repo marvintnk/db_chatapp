@@ -8,7 +8,7 @@
 Diese Anleitung beschreibt die Bereitstellung der Anwendung auf **AWS** mithilfe von **GitHub Actions**.  
 Die Infrastruktur wird über einen **Bootstrap-Workflow** initial erstellt und anschließend über einen **Main-Workflow** deployed.
 
----
+
 
 ## 1. Voraussetzungen
 
@@ -23,7 +23,7 @@ Die Infrastruktur wird über einen **Bootstrap-Workflow** initial erstellt und a
 - GitHub Actions aktiviert
 - GitHub Environment **`default`** erstellt (für alle Variablen und Secrets)
 
----
+
 
 ## 2. AWS Zugangsdaten in GitHub hinterlegen
 
@@ -44,7 +44,7 @@ AWS_SECRET_ACCESS_KEY
 AWS_REGION
 ```
 
----
+
 
 ## 3. Bootstrap-Phase (Infrastruktur initialisieren)
 
@@ -66,7 +66,7 @@ TF_STATE_S3_BUCKET           (z. B. tf-state-locks)
 TF_STATE_DYNAMODB_TABLE      (z. B. chatapp-tfstate-locks)
 ```
 
----
+
 
 ### 3.2 Bootstrap-Workflow ausführen
 
@@ -77,7 +77,7 @@ In GitHub unter:
 
 **Actions → Infra Bootstrap → Run workflow**
 
----
+
 
 ### 3.3 Output aus Bootstrap übernehmen
 
@@ -96,7 +96,7 @@ Nach erfolgreichem Durchlauf des Bootstrap-Workflows:
 AWS_ECR_REPOSITORY
 ```
 
----
+
 
 ## 4. Externe Services (Azure)
 
@@ -112,7 +112,7 @@ AWS_ECR_REPOSITORY
   - MODEL_NAME
   - API_DEPLOYMENT
 
----
+
 
 ### 4.2 Speech-to-Text (Azure Speech Service)
 
@@ -122,7 +122,7 @@ AWS_ECR_REPOSITORY
   - SPEECH_KEY
   - SPEECH_REGION
 
----
+
 
 ## 5. Main-Phase (Deployment der Anwendung)
 
@@ -139,7 +139,7 @@ Der Workflow übernimmt:
 - Push des Images in das ECR Repository
 - Deployment der Anwendung auf AWS
 
----
+
 
 ## 6. Konfiguration der Anwendung
 
@@ -161,7 +161,7 @@ TF_VAR_AZURE_OPENAI_API_DEPLOYMENT
 TF_VAR_AZURE_OPENAI_API_KEY
 ```
 
----
+
 
 ### 6.2 Datenbank (Amazon RDS MySQL)
 
@@ -177,7 +177,7 @@ TF_VAR_DB_NAME
 TF_VAR_DB_PASSWORD
 ```
 
----
+
 
 ### 6.3 Text-to-Speech (optional, Azure Speech)
 
@@ -193,7 +193,7 @@ TF_VAR_AZURE_SPEECH_REGION
 TF_VAR_AZURE_SPEECH_KEY
 ```
 
----
+
 
 ### 6.4 Zugriffsschutz
 
@@ -205,7 +205,7 @@ TF_VAR_UNLOCK_PASSWORD
 
 Eigenes Passwort zum Freischalten der Weboberfläche der Chat-Anwendung.
 
----
+
 
 ## 7. Übersicht aller zu setzenden GitHub Variablen und Secrets
 
@@ -227,7 +227,7 @@ Eigenes Passwort zum Freischalten der Weboberfläche der Chat-Anwendung.
 |                                | TF_VAR_AZURE_SPEECH_KEY                 | Secret    | API Key für Speech Service |
 | Zugriffsschutz                 | TF_VAR_UNLOCK_PASSWORD                   | Secret    | Passwort für Chat-App Weboberfläche |
 
----
+
 
 ## 8. CI/CD Ablaufübersicht
 
@@ -248,7 +248,7 @@ Eigenes Passwort zum Freischalten der Weboberfläche der Chat-Anwendung.
    └── Deployment auf AWS
 ```
 
----
+
 
 ## 9. Qualitätssicherung und Testing
 
@@ -273,7 +273,7 @@ Hier wird eine vollständige Browser-Instanz simuliert und die Svelte-Endpunkte 
 - **Ziel:** Prüfung der Anwendungslogik aus Nutzerperspektive.
 - **Szenario:** Es wird überprüft, ob der Zugriffsmechanismus funktioniert. Der Test simuliert einen User, der ein Passwort eingibt, und validiert, ob die **Homepage erfolgreich freigeschaltet** wird.
 
----
+
 
 ## 10. Ergebnis
 
@@ -284,7 +284,7 @@ Nach erfolgreichem Durchlauf aller Scans, Tests und Workflows:
 - Die Anwendung läuft vollständig auf **AWS**.
 - KI- und Text-to-Speech-Funktionalitäten werden über **Azure Services** bereitgestellt.
 
----
+
 
 ## 11. Infrastructure Teardown (Ressourcen löschen)
 
