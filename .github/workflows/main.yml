@@ -5,9 +5,11 @@ name: Deploy to AWS
 #     branches: [ master ]
 #   pull_request:
 #     branches: [ master ]
+#   workflow_dispatch:
 
 on:
   workflow_dispatch:
+  # to-do back to on push above later
 
 jobs:
   test-and-analyze:

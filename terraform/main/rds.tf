@@ -1,4 +1,3 @@
-
 resource "aws_db_subnet_group" "main" {
   name = "main-db-subnet-group"
   subnet_ids = [
@@ -8,7 +7,9 @@ resource "aws_db_subnet_group" "main" {
   tags = { Name = "main-db-subnet-group" }
 }
 
-
+########################
+# RDS Instance
+########################
 resource "aws_db_instance" "mysql" {
   identifier     = "chatapp-mysql"  
 

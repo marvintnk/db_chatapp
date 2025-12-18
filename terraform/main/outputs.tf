@@ -40,11 +40,3 @@ output "db_username" {
   value     = aws_db_instance.mysql.username
   sensitive = true
 }
-
-output "static_bucket_name" {
-  value = aws_s3_bucket.static_site.bucket
-}
-
-output "static_bucket_website_endpoint" {
-  value = aws_s3_bucket_website_configuration.static_site.website_endpoint
-}

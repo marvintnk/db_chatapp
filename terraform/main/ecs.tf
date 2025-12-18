@@ -1,4 +1,6 @@
-# ECS Cluster
+########################
+# ECS Fargate Cluster
+########################
 resource "aws_ecs_cluster" "app" {
   name = "chatapp-cluster"
 }
@@ -26,7 +28,9 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
+########################
 # Security Group für Fargate (Port 3000)
+########################
 resource "aws_security_group" "ecs_service_sg" {
   name        = "ecs-service-sg"
   description = "Allow HTTP to ECS service"
@@ -47,7 +51,10 @@ resource "aws_security_group" "ecs_service_sg" {
   }
 }
 
-# Task Definition (nutzt dein ECR-Image)
+
+########################
+# Task Definition
+########################
 resource "aws_ecs_task_definition" "chatapp" {
   family                   = "chatapp-task"
   network_mode             = "awsvpc"
@@ -80,7 +87,7 @@ resource "aws_ecs_task_definition" "chatapp" {
       { name = "AZURE_OPENAI_API_MODEL_NAME", value = var.azure_openai_api_model_name },
       { name = "AZURE_OPENAI_API_DEPLOYMENT", value = var.azure_openai_api_deployment },
 
-      # RDS als "Azure MySQL" (Mapping!)
+      # RDS als "Azure MySQL"
       { name = "AZURE_MYSQL_HOST", value = "chatapp-mysql.cpgwisok2zt1.eu-central-1.rds.amazonaws.com" },
       { name = "AZURE_MYSQL_PORT", value = "3306" },
       { name = "AZURE_MYSQL_USERNAME", value = var.db_username },
@@ -107,17 +114,15 @@ resource "aws_ecs_task_definition" "chatapp" {
   }])
 }
 
-
+########################
 # Fargate Service
+########################
 resource "aws_ecs_service" "chatapp" {
   name            = "chatapp-service"
   cluster         = aws_ecs_cluster.app.id
   task_definition = aws_ecs_task_definition.chatapp.arn
   desired_count   = 1
   launch_type     = "FARGATE"
-
-  # ← DIESER TRICK triggert neuen Deployment!
-  # force_new_deployment = true
 
   # Network: Private Subnets
   network_configuration {
