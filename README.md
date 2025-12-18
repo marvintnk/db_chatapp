@@ -99,15 +99,6 @@ Dort werden unter anderem behandelt:
 
 ---
 
-## CI/CD Status
-
-* **Infra Bootstrap Pipeline**: Initialisiert und provisioniert die AWS-Infrastruktur
-* **Deploy Pipeline**: Baut, testet und deployed die Anwendung automatisch
-
-Die aktuellen Status sind über die Badges am Anfang dieser README einsehbar.
-
----
-
 ## Lizenz & Nutzung
 
 Dieses Projekt dient ausschließlich **akademischen Zwecken** im Rahmen eines Masterstudiums.
