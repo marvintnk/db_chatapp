@@ -1,5 +1,8 @@
 [![Infra Bootstrap](https://github.com/marvintnk/db_chatapp/actions/workflows/bootstrap.yml/badge.svg)](https://github.com/marvintnk/db_chatapp/actions/workflows/bootstrap.yml)
+
 [![Deploy to AWS](https://github.com/marvintnk/db_chatapp/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/marvintnk/db_chatapp/actions/workflows/main.yml)
+
+[![Destroy Infrastructure](https://github.com/marvintnk/db_chatapp/actions/workflows/destroy.yml/badge.svg)](https://github.com/marvintnk/db_chatapp/actions/workflows/destroy.yml)
 
 # DB Chat Application – Serviceportal für Benutzerkonten
 
