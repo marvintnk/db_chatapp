@@ -22,8 +22,6 @@ Dies ist ein Fork des Projekts [azure-bot](https://github.com/adrku24/azure-bot/
 
 ## Architektur
 
-Die Architektur gliedert sich in die logische Service-Struktur und deren physisches Mapping auf AWS-Ressourcen.
-
 ### 1. Software-Services
 
 Die Anwendungslogik ist in fünf fachliche Services unterteilt:
@@ -47,21 +45,25 @@ Das System läuft als containerisierte Anwendung in einer VPC-Umgebung, verwalte
 | **Routing** | **ALB** | Application Load Balancer im öffentlichen Subnetz terminiert HTTPS und leitet Traffic weiter. |
 | **Artefakte** | **ECR** | Speicherung und Versionierung der Docker-Images. |
 
-
 ## Software Delivery (CI/CD)
 
-Jede Code-Änderung durchläuft eine automatisierte GitHub Actions Pipeline (`main.yml`).
+Der Auslieferungsprozess ist vollständig über **GitHub Actions** automatisiert. Jede Änderung am `master`-Branch durchläuft die Pipeline (`main.yml`) in sequentiellen Phasen.
 
-| Schritt | Aktion | Beschreibung |
+| Phase | Aktion | Beschreibung |
 | :--- | :--- | :--- |
-| **1. Test** | `npm run test` | Ausführung von Unit- und funktionalen Tests sowie SonarCloud-Analyse. |
-| **2. Security** | `CodeQL` | Statische Analyse auf Sicherheitslücken im JavaScript-Code. |
-| **3. Build** | `docker build` | Erstellung des Docker-Images und Push in die AWS ECR Registry (`:latest`). |
-| **4. Deploy** | `terraform apply` | Update der Infrastruktur (ECS Task Definition) ohne Downtime. |
+| **1. Quality Gate** | `npm run test` | Ausführung von Unit-Tests (JSDOM) und funktionalen Tests (Playwright) zur Sicherstellung der Logik. |
+| **2. Code Analysis** | `SonarCloud` | Statische Analyse auf Code Smells, Bugs und Wartbarkeitsprobleme. |
+| **3. Security** | `CodeQL` | Erweiterter Sicherheitsscan des JavaScript-Codes auf bekannte Schwachstellen (CVEs). |
+| **4. Artifact** | `docker build` | Erstellung des Produktions-Images (Multi-Stage) und Push in die AWS ECR Registry (`:latest`). |
+| **5. Deployment** | `terraform apply` | Infrastruktur-Update (IaC). Aktualisiert ECS Task Definitions und Services für ein Zero-Downtime Deployment. |
 
-Zusätzliche Workflows:
-*   `bootstrap.yml`: Einmalige Initialisierung von Terraform State (S3) und Lock-Table (DynamoDB).
-*   `destroy.yml`: Vollständiger Abbau der AWS-Ressourcen (erfordert manuelle Bestätigung).
+### Zusätzliche Workflows
+
+*   **`bootstrap.yml` (Initial Setup):**
+    Erstellt einmalig die Basisinfrastruktur für Terraform: den S3-Bucket (State Storage), die DynamoDB-Tabelle (State Locking) sowie das ECR-Repository.
+*   **`destroy.yml` (Teardown):**
+    Entfernt automatisiert alle durch die `main.yml` erstellten Anwendungsressourcen (ECS, RDS, ALB) aus AWS.
+    *Hinweis: Die Bootstrap-Ressourcen (Remote Backend, ECR) bleiben erhalten.*
 
 
 ## Lokale Entwicklung
