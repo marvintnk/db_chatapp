@@ -6,7 +6,7 @@ variable "AWS_REGION" {
 # Bestehende DB-Vars
 ########################
 variable "db_username" {
-  default = "app_user"
+  type      = string
 }
 
 variable "db_name" {
@@ -29,7 +29,6 @@ variable "azure_openai_api_key" {
 
 variable "azure_openai_api_version" {
   type    = string
-  default = "2024-02-01"
 }
 
 variable "azure_openai_api_endpoint" {
@@ -39,7 +38,6 @@ variable "azure_openai_api_endpoint" {
 
 variable "azure_openai_api_model_name" {
   type    = string
-  default = "gpt-4.1-nano"
 }
 
 variable "azure_openai_api_deployment" {
