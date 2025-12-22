@@ -8,13 +8,18 @@
 
 ## Projektübersicht
 
-Dieses Projekt ist eine **Webanwendung zur administrativen Verwaltung von Benutzerkonten in einer Datenbank mithilfe eines Chatbots**. Die Anwendung bietet eine Weboberfläche, über die sich Nutzer zunächst authentifizieren müssen. Anschließend können administrative Aufgaben – wie das Erstellen von Nutzern in der Datenbank – dialogbasiert über einen Chatbot durchgeführt werden.
+Dieses Projekt ist eine **Webanwendung zur administrativen Verwaltung von Benutzerkonten in einer Datenbank mithilfe eines Chatbots**. Die Anwendung bietet eine Weboberfläche, über die sich Nutzer zunächst authentifizieren müssen. Anschließend können administrative Aufgaben – wie das Erstellen von Nutzern in der Datenbank – dialogbasiert über einen Chatbot durchgeführt werden. dann kann man sich alles anschließend über ein Admin-Panel ansehen und sich Statistiken ausgeben lassen über das Admin Interface. Sie löst das Problem dass nicht jeder mit SQL oder anderen Administrativen Oberflächen füpr die Datenhaltung in einer DB vertraut ist und ...
 
 Der Chatbot:
 
 * führt Benutzer **schrittweise und benutzerfreundlich** durch Prozesse (z. B. Registrierung),
 * **validiert Eingaben** der Nutzer,
 * ist mit den **Charakteristika aller verfügbaren Kontomodelle** vertraut und beantwortet entsprechende Rückfragen.
+* Möglichkeit der Eingabe per Text to speech 
+
+## Architekturübersicht der Chatapp
+
+![Architekturübersicht des Softwaresystems](documentation/architecture.png)
 
 ---
 
