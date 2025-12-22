@@ -38,7 +38,7 @@ Die Anwendungslogik ist in fünf fachliche Services unterteilt:
 
 Das System läuft als containerisierte Anwendung in einer VPC-Umgebung, verwaltet durch Terraform.
 
-![AWS Architekturdiagramm](documentation/architecture.jpg)
+![AWS Architekturdiagramm](documentation/architecture.png)
 
 | Software-Komponente | AWS Ressource | Details |
 | :--- | :--- | :--- |
