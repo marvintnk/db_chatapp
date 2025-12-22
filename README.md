@@ -71,7 +71,7 @@ Zusätzliche Workflows:
 
 Die Anleitung zur lokalen Einrichtung (Tools, Umgebungsvariablen, Build) befindet sich im separaten Dokument.
 
-➡️ **Siehe:** [Lokale Entwicklung](local_build.md)
+➡️ **Siehe:** [Lokale Entwicklung](documentation/local_build.md)
 
 ---
 
@@ -79,7 +79,7 @@ Die Anleitung zur lokalen Einrichtung (Tools, Umgebungsvariablen, Build) befinde
 
 Die Infrastruktur wird initial einmalig eingerichtet, danach erfolgt das Deployment über die Pipeline.
 
-➡️ **Details siehe:** [Deployment Anleitung](deployment.md)
+➡️ **Details siehe:** [Deployment Anleitung](documentation/deployment.md)
 
 ---
 
