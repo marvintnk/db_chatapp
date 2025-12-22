@@ -47,6 +47,7 @@ jobs:
         env:
           TF_VAR_azure_openai_api_deployment: ${{ vars.TF_VAR_AZURE_OPENAI_API_DEPLOYMENT }}
           TF_VAR_azure_openai_api_endpoint:   ${{ vars.TF_VAR_AZURE_OPENAI_API_ENDPOINT }}
+          TF_VAR_azure_openai_api_version:    ${{ vars.TF_VAR_AZURE_OPENAI_API_VERSION }}
           TF_VAR_azure_openai_api_key:        ${{ secrets.TF_VAR_AZURE_OPENAI_API_KEY }}
           TF_VAR_azure_openai_api_model_name: ${{ vars.TF_VAR_AZURE_OPENAI_API_MODEL_NAME }}
           TF_VAR_azure_speech_key:            ${{ secrets.TF_VAR_AZURE_SPEECH_KEY }}
