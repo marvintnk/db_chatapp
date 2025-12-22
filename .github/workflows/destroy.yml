@@ -33,7 +33,6 @@ jobs:
         with:
           terraform_version: 1.5.7
 
-      # Init ist IDENTISCH zum Deploy-Workflow (wichtig für Remote State!)
       - name: Terraform Init
         working-directory: ./terraform/main
         run: |
@@ -43,11 +42,9 @@ jobs:
             -backend-config="region=$AWS_REGION" \
             -backend-config="dynamodb_table=$TF_STATE_DYNAMODB_TABLE"
 
-      # Der eigentliche Destroy-Befehl
       - name: Terraform Destroy
         working-directory: ./terraform/main
         env:
-          # Wir übergeben alle Variablen, falls Provider oder Data-Sources sie brauchen
           TF_VAR_azure_openai_api_deployment: ${{ vars.TF_VAR_AZURE_OPENAI_API_DEPLOYMENT }}
           TF_VAR_azure_openai_api_endpoint:   ${{ vars.TF_VAR_AZURE_OPENAI_API_ENDPOINT }}
           TF_VAR_azure_openai_api_key:        ${{ secrets.TF_VAR_AZURE_OPENAI_API_KEY }}
