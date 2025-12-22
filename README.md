@@ -19,7 +19,6 @@ Dies ist ein Fork des Projekts [azure-bot](https://github.com/adrku24/azure-bot/
 *   **Zielplattform:** Migration von Azure zu **AWS**.
 *   **Infrastructure as Code:** Vollständige Automatisierung mit **Terraform**.
 
----
 
 ## Architektur
 
@@ -48,7 +47,6 @@ Das System läuft als containerisierte Anwendung in einer VPC-Umgebung, verwalte
 | **Routing** | **ALB** | Application Load Balancer im öffentlichen Subnetz terminiert HTTPS und leitet Traffic weiter. |
 | **Artefakte** | **ECR** | Speicherung und Versionierung der Docker-Images. |
 
----
 
 ## Software Delivery (CI/CD)
 
@@ -65,7 +63,6 @@ Zusätzliche Workflows:
 *   `bootstrap.yml`: Einmalige Initialisierung von Terraform State (S3) und Lock-Table (DynamoDB).
 *   `destroy.yml`: Vollständiger Abbau der AWS-Ressourcen (erfordert manuelle Bestätigung).
 
----
 
 ## Lokale Entwicklung
 
@@ -73,7 +70,6 @@ Die Anleitung zur lokalen Einrichtung (Tools, Umgebungsvariablen, Build) befinde
 
 ➡️ **Siehe:** [Lokale Entwicklung](documentation/local_build.md)
 
----
 
 ## Deployment auf AWS
 
@@ -81,7 +77,7 @@ Die Infrastruktur wird initial einmalig eingerichtet, danach erfolgt das Deploym
 
 ➡️ **Details siehe:** [Deployment Anleitung](documentation/deployment.md)
 
----
+
 
 ## Lizenz
 Akademischer Prototyp für Lehrzwecke. Keine Gewährleistung auf Sicherheit oder Funktion im Produktivbetrieb.
