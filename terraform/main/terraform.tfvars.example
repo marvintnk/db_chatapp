@@ -1,0 +1,18 @@
+# DB (bestehend)
+db_username = "app_user"
+db_password = "CHANGEME"
+db_name = "chatapp"
+
+# Microsoft Foundry ChatGPT (deine Azure-Werte!)
+azure_openai_api_key        = "..."
+azure_openai_api_endpoint   = "https://example.cognitiveservices.azure.com//"
+azure_openai_api_deployment = "gpt-5-nano"
+azure_openai_api_model_name = "gpt-5-nano"
+azure_openai_api_version    = "2024-02-01"
+
+# Unlock (Website-Passwort)
+unlock_password = "CHANGEME"
+
+# Speech (optional/leer lassen)
+azure_speech_key    = "..."
+azure_speech_region = "germanywestcentral"

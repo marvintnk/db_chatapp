@@ -34,29 +34,6 @@ resource "aws_lb_target_group" "chatapp" {
 }
 
 ########################
-# Security Group (IPv6 Regeln hinzufügen)
-########################
-resource "aws_security_group_rule" "alb_allow_ipv6_http" {
-  type                     = "ingress"
-  from_port                = 80
-  to_port                  = 80
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.alb_sg.id
-  cidr_blocks              = []       # IPv4 leer lassen
-  ipv6_cidr_blocks         = ["::/0"] # IPv6 erlauben
-}
-
-resource "aws_security_group_rule" "alb_allow_ipv6_https" {
-  type                     = "ingress"
-  from_port                = 443
-  to_port                  = 443
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.alb_sg.id
-  cidr_blocks              = []
-  ipv6_cidr_blocks         = ["::/0"]
-}
-
-########################
 # HTTP → HTTPS Redirect
 ########################
 resource "aws_lb_listener" "http" {
