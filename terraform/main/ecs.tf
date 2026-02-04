@@ -54,6 +54,7 @@ resource "aws_ecs_task_definition" "chatapp" {
     environment = [
       # App-Core
       { name = "PORT", value = "3000" },
+      { name = "HOST", value = "0.0.0.0" },
       { name = "ORIGIN", value = "https://chatapp.marvin-tank.de" },
 
       # Azure ChatGPT (Microsoft Foundry)
@@ -64,7 +65,7 @@ resource "aws_ecs_task_definition" "chatapp" {
       { name = "AZURE_OPENAI_API_DEPLOYMENT", value = var.azure_openai_api_deployment },
 
       # RDS als "Azure MySQL"
-      { name = "AZURE_MYSQL_HOST", value = "chatapp-mysql.cpgwisok2zt1.eu-central-1.rds.amazonaws.com" },
+      { name = "AZURE_MYSQL_HOST", value = aws_db_instance.mysql.address },
       { name = "AZURE_MYSQL_PORT", value = "3306" },
       { name = "AZURE_MYSQL_USERNAME", value = var.db_username },
       { name = "AZURE_MYSQL_PASSWORD", value = var.db_password },

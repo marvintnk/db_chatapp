@@ -18,6 +18,17 @@ output "db_sg_id" {
   value = aws_security_group.db_sg.id
 }
 
+output "alb_dns_name" {
+  value       = aws_lb.chatapp.dns_name
+  description = "The DNS name of the Application Load Balancer"
+}
+
+output "application_url" {
+  value       = "https://${aws_lb.chatapp.dns_name}"
+  description = "Application URL (via ALB DNS)"
+}
+
+
 output "db_endpoint" {
   value     = aws_db_instance.mysql.address
   sensitive = true
