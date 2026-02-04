@@ -41,7 +41,7 @@ resource "aws_ecs_task_definition" "chatapp" {
 
   container_definitions = jsonencode([{
     name      = "chatapp"
-    image     = "942849037433.dkr.ecr.eu-central-1.amazonaws.com/sveltekit-chatapp:latest"
+    image     = var.container_image
     essential = true
 
     portMappings = [{

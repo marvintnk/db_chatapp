@@ -44,6 +44,11 @@ variable "azure_openai_api_deployment" {
   type = string
 }
 
+variable "container_image" {
+  description = "Docker image for the application (e.g. repo_url:tag)"
+  type        = string
+}
+
 ########################
 # Unlock Password
 ########################
