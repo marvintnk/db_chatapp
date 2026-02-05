@@ -1,0 +1,46 @@
+graph TD
+    User((User))
+
+    subgraph Application_Container [SvelteKit Application]
+        style Application_Container fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+        
+        Frontend[Frontend - UI & Client Logic]
+        Backend[Backend - Server API & SSR]
+        
+        subgraph Business_Logic [Business Logic Core]
+            style Business_Logic fill:#ffffff,stroke:#333,stroke-dasharray: 5 5
+            
+            UserManager[User Management Service]
+            AI_Integration[AI & LLM Integration]
+            StatsService[Statistics Processing]
+        end
+    end
+
+    Database[(MySQL Database)]
+    ExternalAI[Microsoft Foundry - Azure OpenAI]
+
+    %% Data Flow
+    User -->|Interactions| Frontend
+    User -->|API Requests| Backend
+    
+    Frontend <-->|Internal Sync| Backend
+    
+    Backend -->|Delegates Tasks| UserManager
+    Backend -->|Delegates Tasks| AI_Integration
+    Backend -->|Delegates Tasks| StatsService
+    
+    UserManager -->|Reads/Writes| Database
+    StatsService -->|Reads/Writes| Database
+    AI_Integration -->|Prompts & Responses| ExternalAI
+
+    %% Styling Definitions - MIT GRÖSSERER SCHRIFT
+    classDef appNode fill:#68A063,stroke:#333,color:white,font-size:18px,font-weight:bold;
+    classDef dbNode fill:#336791,stroke:#333,color:white,font-size:18px,font-weight:bold;
+    classDef externalNode fill:#FF9900,stroke:#232F3E,color:white,font-size:18px,font-weight:bold;
+    classDef userNode fill:#fff,stroke:#333,stroke-width:2px,font-size:20px,font-weight:bold;
+
+    %% Apply Styles
+    class Frontend,Backend,UserManager,AI_Integration,StatsService appNode;
+    class Database dbNode;
+    class ExternalAI externalNode;
+    class User userNode;
